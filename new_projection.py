@@ -58,7 +58,7 @@ def get_image_from_w(G, ws):
 z = torch.randn((1, 512), device=device)
 img = G(z, c=None)
 
-
+print(img.shape)
 
 
 
