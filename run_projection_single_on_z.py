@@ -71,11 +71,23 @@ def project(
           print(*args)
 
   G = copy.deepcopy(G).eval().requires_grad_(False).to(device) # type: ignore
+  c = None
 
   # Compute w stats.
   logprint(f'Computing W midpoint and stddev using {w_avg_samples} samples...')
-  z_samples = np.random.RandomState(123).randn(3, G.z_dim)
-  
+  z_samples = np.random.RandomState(123).randn(1, G.z_dim)
+
+  print(z_samples.shape)
+
+  wi = G.mapping(torch.tensor(z_samples, device=device), c=None)
+  print(wi.shape)
+
+  # diff = (wi[5] - wi[3]).sum().square()
+  # print(diff)
+
+  exit(0)
+
+
   # Load VGG16 feature detector.
   url = 'https://nvlabs-fi-cdn.nvidia.com/stylegan2-ada-pytorch/pretrained/metrics/vgg16.pt'
   with dnnlib.util.open_url(url) as f:
@@ -201,6 +213,7 @@ def run_project(network_pkl: str, target_fname: str, outdir: str, save_video: bo
   return projected_z, noise
 
 #%%
+
 
 network_pkl = 'https://kaust-cair.s3.amazonaws.com/alis/lhq1024-snapshot.pkl'
 
