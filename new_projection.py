@@ -264,7 +264,7 @@ def run_project_on_folder(folder: str):
             outdir = './ernesto_data/projection',
             save_video = False,
             seed = 123,
-            num_steps = 3,
+            num_steps = 2000,
             out_name = f'{idx}'
         )
 
